@@ -1,0 +1,175 @@
+@page "/yield"
+
+<PageTitle>Yield Farming</PageTitle>
+
+<h1>Yield Farming Opportunities</h1>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search yield farms..." />
+            <button class="btn btn-primary" type="button">Search</button>
+        </div>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="dropdown d-inline-block me-2">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="riskDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                All Risk Levels
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="riskDropdown">
+                <li><a class="dropdown-item" href="#">All Risk Levels</a></li>
+                <li><a class="dropdown-item" href="#">Low Risk</a></li>
+                <li><a class="dropdown-item" href="#">Medium Risk</a></li>
+                <li><a class="dropdown-item" href="#">High Risk</a></li>
+            </ul>
+        </div>
+        <div class="dropdown d-inline-block">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort by APY
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                <li><a class="dropdown-item" href="#">APY (High to Low)</a></li>
+                <li><a class="dropdown-item" href="#">TVL (High to Low)</a></li>
+                <li><a class="dropdown-item" href="#">Risk (Low to High)</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var farm in farms)
+    {
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <div class="farm-icon me-2">@farm.Icon</div>
+                        <h5 class="mb-0">@farm.Name</h5>
+                    </div>
+                    <span class="badge bg-@farm.RiskColor">@farm.RiskLevel</span>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="small text-muted">Protocol</div>
+                        <div class="fw-bold">@farm.Protocol</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="small text-muted">Chain</div>
+                        <div class="fw-bold"><span class="badge bg-secondary">@farm.Chain</span></div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="small text-muted">APY</div>
+                        <div class="fw-bold text-success">@farm.Apy%</div>
+                        <div class="small text-muted">@farm.ApyBreakdown</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="small text-muted">TVL</div>
+                        <div class="fw-bold">$@farm.Tvl</div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <button class="btn btn-sm btn-outline-primary">Details</button>
+                    <button class="btn btn-sm btn-success">Invest</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">Yield Farming Strategies</div>
+    <div class="card-body">
+        <p>Recommended strategies based on your risk profile and portfolio will be displayed here.</p>
+    </div>
+</div>
+
+@code {
+    private List<YieldFarmInfo> farms = new List<YieldFarmInfo>
+    {
+        new YieldFarmInfo
+        {
+            Name = "ETH-USDC LP",
+            Icon = "🔄",
+            Protocol = "Uniswap V3",
+            Chain = "Ethereum",
+            Apy = "12.5",
+            ApyBreakdown = "4.2% fees + 8.3% rewards",
+            Tvl = "845.2M",
+            RiskLevel = "Low",
+            RiskColor = "success"
+        },
+        new YieldFarmInfo
+        {
+            Name = "AAVE Lending",
+            Icon = "👻",
+            Protocol = "Aave V3",
+            Chain = "Ethereum",
+            Apy = "3.8",
+            ApyBreakdown = "3.2% interest + 0.6% rewards",
+            Tvl = "4.2B",
+            RiskLevel = "Low",
+            RiskColor = "success"
+        },
+        new YieldFarmInfo
+        {
+            Name = "ETH-BTC LP",
+            Icon = "🔄",
+            Protocol = "Curve",
+            Chain = "Ethereum",
+            Apy = "8.9",
+            ApyBreakdown = "3.5% fees + 5.4% CRV",
+            Tvl = "512.3M",
+            RiskLevel = "Low",
+            RiskColor = "success"
+        },
+        new YieldFarmInfo
+        {
+            Name = "GMX GLP",
+            Icon = "📈",
+            Protocol = "GMX",
+            Chain = "Arbitrum",
+            Apy = "15.7",
+            ApyBreakdown = "10.2% fees + 5.5% rewards",
+            Tvl = "370.5M",
+            RiskLevel = "Medium",
+            RiskColor = "warning"
+        },
+        new YieldFarmInfo
+        {
+            Name = "Balancer Stable",
+            Icon = "⚖️",
+            Protocol = "Balancer",
+            Chain = "Polygon",
+            Apy = "9.3",
+            ApyBreakdown = "2.1% fees + 7.2% BAL",
+            Tvl = "156.3M",
+            RiskLevel = "Medium",
+            RiskColor = "warning"
+        },
+        new YieldFarmInfo
+        {
+            Name = "Exotic Farm",
+            Icon = "🌶️",
+            Protocol = "SushiSwap",
+            Chain = "Optimism",
+            Apy = "42.5",
+            ApyBreakdown = "5.3% fees + 37.2% SUSHI",
+            Tvl = "24.7M",
+            RiskLevel = "High",
+            RiskColor = "danger"
+        }
+    };
+
+    public class YieldFarmInfo
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
+        public string Protocol { get; set; } = string.Empty;
+        public string Chain { get; set; } = string.Empty;
+        public string Apy { get; set; } = string.Empty;
+        public string ApyBreakdown { get; set; } = string.Empty;
+        public string Tvl { get; set; } = string.Empty;
+        public string RiskLevel { get; set; } = string.Empty;
+        public string RiskColor { get; set; } = string.Empty;
+    }
+}

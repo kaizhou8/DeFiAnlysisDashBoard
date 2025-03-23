@@ -1,0 +1,154 @@
+@page "/liquidity"
+
+<PageTitle>Liquidity Pools</PageTitle>
+
+<h1>Liquidity Pools</h1>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search liquidity pools..." />
+            <button class="btn btn-primary" type="button">Search</button>
+        </div>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="dropdown d-inline-block me-2">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="chainDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                All Chains
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="chainDropdown">
+                <li><a class="dropdown-item" href="#">All Chains</a></li>
+                <li><a class="dropdown-item" href="#">Ethereum</a></li>
+                <li><a class="dropdown-item" href="#">Arbitrum</a></li>
+                <li><a class="dropdown-item" href="#">Optimism</a></li>
+                <li><a class="dropdown-item" href="#">Polygon</a></li>
+            </ul>
+        </div>
+        <div class="dropdown d-inline-block">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort by TVL
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                <li><a class="dropdown-item" href="#">TVL (High to Low)</a></li>
+                <li><a class="dropdown-item" href="#">Volume (High to Low)</a></li>
+                <li><a class="dropdown-item" href="#">APR (High to Low)</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var pool in pools)
+    {
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <div class="pool-icon me-2">@pool.Icon</div>
+                        <h5 class="mb-0">@pool.Name</h5>
+                    </div>
+                    <span class="badge bg-secondary">@pool.Chain</span>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="small text-muted">Protocol</div>
+                        <div class="fw-bold">@pool.Protocol</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="small text-muted">TVL</div>
+                        <div class="fw-bold">$@pool.Tvl</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="small text-muted">24h Volume</div>
+                        <div class="fw-bold">$@pool.Volume24h</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="small text-muted">APR</div>
+                        <div class="fw-bold text-success">@pool.Apr%</div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <button class="btn btn-sm btn-outline-primary">Details</button>
+                    <button class="btn btn-sm btn-success">Add Liquidity</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<PoolInfo> pools = new List<PoolInfo>
+    {
+        new PoolInfo
+        {
+            Name = "ETH-USDC",
+            Icon = "🔄",
+            Protocol = "Uniswap V3",
+            Chain = "Ethereum",
+            Tvl = "845.2M",
+            Volume24h = "125.7M",
+            Apr = "4.8"
+        },
+        new PoolInfo
+        {
+            Name = "WBTC-ETH",
+            Icon = "🔄",
+            Protocol = "Uniswap V3",
+            Chain = "Ethereum",
+            Tvl = "512.3M",
+            Volume24h = "98.4M",
+            Apr = "3.9"
+        },
+        new PoolInfo
+        {
+            Name = "ETH-USDT",
+            Icon = "🔄",
+            Protocol = "Curve",
+            Chain = "Ethereum",
+            Tvl = "423.8M",
+            Volume24h = "87.2M",
+            Apr = "3.5"
+        },
+        new PoolInfo
+        {
+            Name = "USDC-USDT",
+            Icon = "🔄",
+            Protocol = "Curve",
+            Chain = "Ethereum",
+            Tvl = "389.5M",
+            Volume24h = "45.6M",
+            Apr = "2.1"
+        },
+        new PoolInfo
+        {
+            Name = "ETH-USDC",
+            Icon = "🔄",
+            Protocol = "Uniswap V3",
+            Chain = "Arbitrum",
+            Tvl = "245.7M",
+            Volume24h = "67.8M",
+            Apr = "5.2"
+        },
+        new PoolInfo
+        {
+            Name = "MATIC-USDC",
+            Icon = "🔄",
+            Protocol = "QuickSwap",
+            Chain = "Polygon",
+            Tvl = "156.3M",
+            Volume24h = "34.5M",
+            Apr = "6.7"
+        }
+    };
+
+    public class PoolInfo
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
+        public string Protocol { get; set; } = string.Empty;
+        public string Chain { get; set; } = string.Empty;
+        public string Tvl { get; set; } = string.Empty;
+        public string Volume24h { get; set; } = string.Empty;
+        public string Apr { get; set; } = string.Empty;
+    }
+}

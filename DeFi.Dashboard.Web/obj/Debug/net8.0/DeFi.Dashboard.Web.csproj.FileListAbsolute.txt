@@ -1,0 +1,6 @@
+E:\MinimalShooting-master\DeFi.Dashboard.Web\obj\Debug\net8.0\DeFi.Dashboard.Web.csproj.AssemblyReference.cache
+E:\MinimalShooting-master\DeFi.Dashboard.Web\obj\Debug\net8.0\DeFi.Dashboard.Web.GeneratedMSBuildEditorConfig.editorconfig
+E:\MinimalShooting-master\DeFi.Dashboard.Web\obj\Debug\net8.0\DeFi.Dashboard.Web.AssemblyInfoInputs.cache
+E:\MinimalShooting-master\DeFi.Dashboard.Web\obj\Debug\net8.0\DeFi.Dashboard.Web.AssemblyInfo.cs
+E:\MinimalShooting-master\DeFi.Dashboard.Web\obj\Debug\net8.0\DeFi.Dashboard.Web.csproj.CoreCompileInputs.cache
+E:\MinimalShooting-master\DeFi.Dashboard.Web\obj\Debug\net8.0\DeFi.Dashboard.Web.MvcApplicationPartsAssemblyInfo.cache

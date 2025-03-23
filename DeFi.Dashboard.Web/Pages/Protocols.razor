@@ -1,0 +1,144 @@
+@page "/protocols"
+
+<PageTitle>DeFi Protocols</PageTitle>
+
+<h1>DeFi Protocols</h1>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search protocols..." />
+            <button class="btn btn-primary" type="button">Search</button>
+        </div>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter by Category
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                <li><a class="dropdown-item" href="#">All</a></li>
+                <li><a class="dropdown-item" href="#">DEX</a></li>
+                <li><a class="dropdown-item" href="#">Lending</a></li>
+                <li><a class="dropdown-item" href="#">Yield</a></li>
+                <li><a class="dropdown-item" href="#">Derivatives</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var protocol in protocols)
+    {
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <div class="protocol-icon me-2">@protocol.Icon</div>
+                        <h5 class="mb-0">@protocol.Name</h5>
+                    </div>
+                    <span class="badge bg-@protocol.CategoryColor">@protocol.Category</span>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="small text-muted">TVL</div>
+                        <div class="fw-bold">$@protocol.Tvl</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="small text-muted">24h Volume</div>
+                        <div class="fw-bold">$@protocol.Volume24h</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="small text-muted">Chains</div>
+                        <div>
+                            @foreach (var chain in protocol.Chains)
+                            {
+                                <span class="badge bg-secondary me-1">@chain</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-outline-primary w-100">View Details</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<ProtocolInfo> protocols = new List<ProtocolInfo>
+    {
+        new ProtocolInfo
+        {
+            Name = "Uniswap",
+            Icon = "🦄",
+            Category = "DEX",
+            CategoryColor = "primary",
+            Tvl = "5.2B",
+            Volume24h = "1.8B",
+            Chains = new List<string> { "Ethereum", "Arbitrum", "Optimism", "Polygon" }
+        },
+        new ProtocolInfo
+        {
+            Name = "Aave",
+            Icon = "👻",
+            Category = "Lending",
+            CategoryColor = "info",
+            Tvl = "4.8B",
+            Volume24h = "950M",
+            Chains = new List<string> { "Ethereum", "Avalanche", "Polygon" }
+        },
+        new ProtocolInfo
+        {
+            Name = "Curve",
+            Icon = "🔄",
+            Category = "DEX",
+            CategoryColor = "primary",
+            Tvl = "3.9B",
+            Volume24h = "820M",
+            Chains = new List<string> { "Ethereum", "Arbitrum", "Optimism" }
+        },
+        new ProtocolInfo
+        {
+            Name = "Compound",
+            Icon = "💰",
+            Category = "Lending",
+            CategoryColor = "info",
+            Tvl = "2.7B",
+            Volume24h = "450M",
+            Chains = new List<string> { "Ethereum" }
+        },
+        new ProtocolInfo
+        {
+            Name = "MakerDAO",
+            Icon = "🏛️",
+            Category = "Lending",
+            CategoryColor = "info",
+            Tvl = "2.1B",
+            Volume24h = "380M",
+            Chains = new List<string> { "Ethereum" }
+        },
+        new ProtocolInfo
+        {
+            Name = "GMX",
+            Icon = "📈",
+            Category = "Derivatives",
+            CategoryColor = "warning",
+            Tvl = "1.2B",
+            Volume24h = "950M",
+            Chains = new List<string> { "Arbitrum", "Avalanche" }
+        }
+    };
+
+    public class ProtocolInfo
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
+        public string Category { get; set; } = string.Empty;
+        public string CategoryColor { get; set; } = string.Empty;
+        public string Tvl { get; set; } = string.Empty;
+        public string Volume24h { get; set; } = string.Empty;
+        public List<string> Chains { get; set; } = new List<string>();
+    }
+}

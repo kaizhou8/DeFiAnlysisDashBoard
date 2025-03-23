@@ -1,0 +1,130 @@
+@page "/portfolio"
+@using DeFi.Dashboard.Web.Pages.Models
+
+<PageTitle>DeFi Portfolio</PageTitle>
+
+<h1>Portfolio Tracker</h1>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter wallet address..." />
+            <button class="btn btn-primary" type="button">Track</button>
+        </div>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary">Day</button>
+            <button type="button" class="btn btn-outline-primary">Week</button>
+            <button type="button" class="btn btn-outline-primary active">Month</button>
+            <button type="button" class="btn btn-outline-primary">Year</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-header">Portfolio Value</div>
+            <div class="card-body">
+                <h3>$124,567.89</h3>
+                <p class="text-success">+5.7% <small>30d</small></p>
+                <p class="text-muted">Last updated: Today, 10:45 AM</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-header">Asset Allocation</div>
+            <div class="card-body">
+                <p>Chart will be displayed here</p>
+                <ul class="list-unstyled mt-3">
+                    <li><span class="badge bg-primary me-2">■</span> Tokens (45%)</li>
+                    <li><span class="badge bg-success me-2">■</span> LP Positions (30%)</li>
+                    <li><span class="badge bg-info me-2">■</span> Lending (15%)</li>
+                    <li><span class="badge bg-warning me-2">■</span> Staking (10%)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-header">Chain Distribution</div>
+            <div class="card-body">
+                <p>Chart will be displayed here</p>
+                <ul class="list-unstyled mt-3">
+                    <li><span class="badge bg-primary me-2">■</span> Ethereum (40%)</li>
+                    <li><span class="badge bg-success me-2">■</span> Arbitrum (25%)</li>
+                    <li><span class="badge bg-info me-2">■</span> Polygon (20%)</li>
+                    <li><span class="badge bg-warning me-2">■</span> Optimism (15%)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Assets</span>
+        <div class="btn-group btn-group-sm">
+            <button type="button" class="btn btn-outline-secondary active">All</button>
+            <button type="button" class="btn btn-outline-secondary">Tokens</button>
+            <button type="button" class="btn btn-outline-secondary">LP Positions</button>
+            <button type="button" class="btn btn-outline-secondary">Lending</button>
+            <button type="button" class="btn btn-outline-secondary">Staking</button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Type</th>
+                        <th>Chain</th>
+                        <th>Balance</th>
+                        <th>Value</th>
+                        <th>24h Change</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var asset in assets)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="asset-icon me-2">@asset.Icon</div>
+                                    <div>@asset.Name</div>
+                                </div>
+                            </td>
+                            <td><span class="badge bg-light text-dark">@asset.Type</span></td>
+                            <td><span class="badge bg-secondary">@asset.Chain</span></td>
+                            <td>@asset.Balance</td>
+                            <td>$@asset.Value</td>
+                            <td class="@(asset.Change24h.StartsWith("+") ? "text-success" : "text-danger")">@asset.Change24h</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary">Details</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<AssetInfo> assets = new List<AssetInfo>
+    {
+        new AssetInfo
+        {
+            Name = "Ethereum",
+            Icon = "Ξ",
+            Type = "Token",
+            Chain = "Ethereum",
+            Balance = "12.45 ETH",
+            Value = "34,567.89",
+            Change24h = "+2.3%"
+        },
+        new AssetInfo
